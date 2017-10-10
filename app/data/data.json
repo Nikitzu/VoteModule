@@ -1,0 +1,8 @@
+{
+  "question": "Yes Or No",
+  "answers": ["Yes", "No"],
+  "statistic": true,
+  "multiSelect": true,
+  "multipleTimesVoting": true,
+  "selectNothing": true
+}

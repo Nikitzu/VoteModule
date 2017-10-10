@@ -1,0 +1,15 @@
+<div class="text-center">
+    <h3>{{question}}?</h3>
+</div>
+<div class="text-center">
+    <div ng-repeat="(answer, value) in checkboxModel" class="radio-inline">
+        <label for="{{answer + 1}}">{{answer}}</label>
+        <input ng-click="updateSelection(answer, checkboxModel)" id="{{answer + 1}}"
+               type="checkbox" ng-model="checkboxModel[answer]" value="{{value}}" ng-show="isVoting">
+        <div style="display: inline-block" ng-hide="isVoting">{{result[answer]}}</div>
+    </div>
+    <div>
+        <button class="btn btn-success" ng-click="vote()" ng-show="isVoting"> Vote! </button>
+        <button class="btn btn-default" ng-click="voteAgain()" ng-hide="isVoting"> Vote Again! </button>
+    </div>
+</div>
