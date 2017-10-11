@@ -1,8 +1,8 @@
 {
-  "question": "Yes Or No",
-  "answers": ["Yes", "No"],
-  "statistic": true,
-  "multiSelect": true,
-  "multipleTimesVoting": true,
-  "selectNothing": true
+  "question": "Who was the longest-serving monarch of England?",
+  "answers": ["George V", "Edward VII", "Victoria", "George II", "Elizabeth II"],
+  "singleSelect": true,
+  "multipleTimesVoting": false,
+  "selectNothing": false,
+  "rightAnswers": [5]
 }

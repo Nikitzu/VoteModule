@@ -1,0 +1,8 @@
+{
+  "question": "Choose an expression whose result is an even number",
+  "answers": ["88/12 + 5", "2 + 22 - 13 * 2", "45 - 13/2 + 4.5", "8/3+11.6"],
+  "singleSelect": false,
+  "multipleTimesVoting": true,
+  "selectNothing": false,
+  "rightAnswers": [2, 3]
+}

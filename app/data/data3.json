@@ -1,0 +1,7 @@
+{
+  "question": "What do you like to eat",
+  "answers": ["Pizza", "Hamburger", "Pasta", "Sushi", "Fried potato", "Steak", "Cheese soup", "Cake", "Cheesecake"],
+  "singleSelect": false,
+  "multipleTimesVoting": true,
+  "selectNothing": true
+}
