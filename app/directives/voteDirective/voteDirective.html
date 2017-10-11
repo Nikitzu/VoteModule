@@ -19,7 +19,7 @@
         <div class="resultText col-lg-4 col-md-4 col-sm-4 col-xs-4"
              ng-class="{'glyphicon glyphicon-ok text-success' : checkRightAnswer($index) && rightAnswersExist,
              'glyphicon glyphicon-remove text-danger': !checkRightAnswer($index) && rightAnswersExist, 'text-info': !rightAnswersExist}"
-             ng-hide="isVoting"> - {{result[answer]}} answers
+             ng-hide="isVoting"> - {{result[answer]}} answer(s)
         </div>
     </div>
     <div class="text-center alert-danger col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-if="showErrorMessage">
