@@ -23,3 +23,31 @@
   content: "|";
   padding-right: 0.3em;
 }
+
+.rightAnswer{
+  color: #3c763d;
+  background-color: #dff0d8;
+  border-color: #d6e9c6;
+  display: inline-block
+}
+.otherAnswer{
+  display: inline-block
+}
+.voteDirective{
+  background-color: #9acfea;
+  margin: 20px;
+  padding: 0;
+}
+.voteDirective div{
+  padding: 0;
+}
+.buttons{
+  margin: 5px;
+  text-align: center;
+}
+.answerText{
+  font-size: 15px;
+}
+.answer{
+  margin-bottom: 1%;
+}
