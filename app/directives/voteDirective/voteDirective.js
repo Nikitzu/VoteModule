@@ -1,39 +1,41 @@
 var app = angular.module('myApp');
 
-app.directive("voteDirective", ['getDataService', 'localStorageService', function (getDataService, localStorageService) {
+app.directive("voteDirective", ['dataService', 'localStorageService', function (dataService, localStorageService) {
     var logError = function (err) {
         console.error(err)
     };
 
-    function createResultObject (){
-        for(var key in this.checkboxModel){
-            if(this.checkboxModel[key]){
+    function createResultObject() {
+        var properiesArray = Object.getOwnPropertyNames(this.checkboxModel);
+        properiesArray.forEach(function (item) {
+            if (this.checkboxModel[item]) {
                 this.checked = true;
-                this.result[key] = !isNaN(this.result[key]) ? this.result[key]+= 1 : 1;
-            }else{
-                this.result[key] = !isNaN(this.result[key]) ?this.result[key] : 0;
+                this.result[item] = !isNaN(this.result[item]) ? this.result[item] += 1 : 1;
+            } else {
+                this.result[item] = !isNaN(this.result[item]) ? this.result[item] : 0;
             }
-        }
+        }, this);
     }
 
     function uncheckAllOtherCheckboxes(entities, itemKey) {
-        for(var key in entities){
-            if(itemKey != key) entities[key] = false
-        }
+        var properiesArray = Object.getOwnPropertyNames(entities);
+        properiesArray.forEach(function (item) {
+            if (itemKey != item) entities[item] = false
+        });
     }
 
-    function mapResponseData(res){
-        if(res.data.question){
+    function mapResponseData(res) {
+        if (res.data.question) {
             this.question = res.data.question;
-        }else{
+        } else {
             logError("Question is not given")
         }
-        if(res.data.answers){
+        if (res.data.answers) {
             this.checkboxModel = res.data.answers.reduce(function (prevValue, currentValue) {
                 prevValue[currentValue] = false;
                 return prevValue;
             }, {});
-        }else{
+        } else {
             logError("Answers is not given")
         }
 
@@ -42,12 +44,14 @@ app.directive("voteDirective", ['getDataService', 'localStorageService', functio
         this.canSelectNothing = res.data.selectNothing || false;
         this.voteButtonText = res.data.selectNothing ? "Vote or see results" : "Vote";
 
-        if(res.data.rightAnswers){
-            this.rightAnswersIndexes = res.data.rightAnswers.map(function(item){
+        if (res.data.rightAnswers) {
+            this.rightAnswersIndexes = res.data.rightAnswers.map(function (item) {
                 return item - 1;
-            })
-        }else{
+            });
+            this.rightAnswersExist = true;
+        } else {
             this.rightAnswersIndexes = -1;
+            this.rightAnswersExist = false;
         }
     }
 
@@ -62,21 +66,21 @@ app.directive("voteDirective", ['getDataService', 'localStorageService', functio
             scope.errorMessage = "You need to chose something";
             scope.checked = false;
             scope.showErrorMessage = false;
-            getDataService.getData(scope.source)
+            dataService.getData(scope.source)
                 .then(function (res) {
                     mapResponseData.call(scope, res);
                 })
                 .catch(logError);
-            
+
             scope.vote = function () {
-                scope.result = localStorageService.get(scope.question) || {};
+                scope.result = dataService.getDataFromLocalStorage(scope.question) || {};
                 createResultObject.call(scope);
-                if(scope.canSelectNothing || scope.checked){
+                if (scope.canSelectNothing || scope.checked) {
                     scope.showErrorMessage = false;
-                    localStorageService.set(scope.question, scope.result);
+                    dataService.saveData(scope.question, scope.result);
                     scope.isVoting = false;
                     scope.checked = false;
-                }else{
+                } else {
                     scope.showErrorMessage = true;
                 }
             };
@@ -89,7 +93,7 @@ app.directive("voteDirective", ['getDataService', 'localStorageService', functio
             scope.updateSelection = uncheckAllOtherCheckboxes;
 
             scope.checkRightAnswer = function (index) {
-                return scope.rightAnswersIndexes != -1 && scope.rightAnswersIndexes.some(function (elem) {
+                return scope.rightAnswersExist && scope.rightAnswersIndexes.some(function (elem) {
                     return elem == index
                 })
             }

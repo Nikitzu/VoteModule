@@ -1,6 +1,12 @@
 {
   "question": "Chose your field of work",
-  "answers": ["Engineering & Technology", "Sales, Service & Support", "Design", "Finance", "Marketing & Communications"],
+  "answers": [
+    "Engineering & Technology",
+    "Sales, Service & Support",
+    "Design",
+    "Finance",
+    "Marketing & Communications"
+  ],
   "singleSelect": false,
   "multipleTimesVoting": false,
   "selectNothing": false
