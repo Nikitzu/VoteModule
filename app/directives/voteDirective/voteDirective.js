@@ -69,7 +69,7 @@ app.directive("voteDirective", ['getDataService', 'localStorageService', functio
                 .catch(logError);
             
             scope.vote = function () {
-                scope.result = localStorageService.get(scope.question);
+                scope.result = localStorageService.get(scope.question) || {};
                 createResultObject.call(scope);
                 if(scope.canSelectNothing || scope.checked){
                     scope.showErrorMessage = false;
